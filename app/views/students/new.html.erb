@@ -1,0 +1,24 @@
+<% provide(:title, "New Student") %>
+<h1>New Student</h1>
+<div class="row">
+  <div class="col-md-6">
+    <%= form_for(@student) do |f| %>
+    <% @student.errors.full_messages.each do |msg| %>
+	    <li><%= msg %></li>
+	  <% end %>
+      <%= f.label "Student Name" %>
+      <%= f.text_field :name %><br>
+
+      <%= f.label "Admission Year Test" %>
+      <%= f.text_field :admission_year %><br>
+
+      <%= f.label "Active" %>
+      <%= f.check_box :active %><br>
+
+      <%= f.hidden_field :classroom_id, :value => @classroom.id %>
+
+      <%= f.submit "Create Student", class: "btn btn-primary" %><br>
+    <% end %>
+  </div>
+</div>
+<%= link_to 'Back', students_path %>

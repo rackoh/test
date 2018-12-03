@@ -1,0 +1,45 @@
+<% provide(:title, "Classroom list") %>
+<p id="notice"><%= notice %></p>
+
+<h1>Classrooms</h1>
+
+<table style="width:70%">
+  <thead>
+    <tr>
+      <th>Id</th>
+      <th>Name</th>
+      <th>Code</th>
+      <th>Active</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @classrooms.each do |classroom| %>
+      <tr>
+        <td><%= classroom.id %></td>
+        <td><%= classroom.name %></td>
+        <td><%= classroom.code %></td>
+        <td><%= classroom.active %></td>
+        <td><%= form_for classroom, :url => classroom_path(classroom), method: :get do |f| %>
+          <%= submit_tag "Class details", name: nil, :class => "btn btn-small btn-primary"%>
+        <%end%>
+        <td><%= form_for classroom, :url => new_student_path, method: :get do |f| %>
+          <%= f.hidden_field :id, :value => classroom.id %>
+          <%= submit_tag "Add New Student", name: nil, :class => "btn btn-small btn-primary"%>
+        <%end%></td>
+        <td><%= form_for classroom, :url => edit_classroom_path(classroom), method: :get do |f| %>
+          <%= submit_tag "Edit Class", name: nil, :class => "btn btn-small btn-danger"%>
+        <%end%>
+        <td><%= form_for classroom, :url => { :id => classroom.id, :action => "destroy" }, method: :delete do |f| %>
+          <%= f.hidden_field :id, :value => classroom.id %>
+          <%= submit_tag "Delete", :class => "btn btn-small btn-danger",
+          :confirm => "Do you want to remove this classroom permanently?"%>
+        <%end%>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+<br>
+<%= form_for :classroom, :url => new_classroom_path, method: :get do |f| %>
+  <%= submit_tag "Create New Class", :class => "btn btn-large btn-primary"%>
+<%end%>

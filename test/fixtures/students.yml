@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  name: MyString
+  admission_year: 1
+  active: false
+  classroom: one
+
+two:
+  name: MyString
+  admission_year: 1
+  active: false
+  classroom: two
