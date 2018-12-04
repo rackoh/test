@@ -1,7 +1,26 @@
 <% provide(:title, "Edit Classroom Details") %>
 <h1>Editing Classroom</h1>
 
-<%= render 'form', classroom: @classroom %>
+<div class="row">
+  <div class="col-md-12 form-inline">
+    <div class="btn-group">
+      <%= form_for @classroom, :url => classroom_path(@classroom), method: :patch do |f| %>
+        <%= render 'classrooms/form' %>
+        <%= f.label "Class Name" %>
+        <%= f.text_field :name %><br>
 
-<%= link_to 'Show', @classroom %> |
-<%= link_to 'Back', classrooms_path %>
+        <%= f.label "Code" %>
+        <%= f.text_field :code %><br>
+
+        <%= f.label "Active" %>
+        <%= f.check_box :active %><br>
+
+        <%= f.submit "Update", name: nil, :class => "btn btn-danger" %>
+      <% end %>
+      <%= form_for :classroom, :url => classrooms_path, method: :get do |f| %>
+        <%= submit_tag "Back", name: nil, :class => "btn btn-small btn-primary"%>
+      <%end%>
+    </div>
+  </div>
+</div>
+

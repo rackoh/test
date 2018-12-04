@@ -1,10 +1,7 @@
 class StudentsController < ApplicationController
   before_action :set_student, only: [:show, :edit, :update, :destroy]
   
-  rescue_from ActiveRecord::RecordNotFound, :with => :record_not_found  
-
   def index
-    # byebug
     if invalid_active_state || invalid_classroom_ids
       @students = []
     elsif (!params[:active].nil? || params[:admissionYearAfter].present? || params[:admissionYearBefore].present? || params[:classes].present?)
@@ -15,11 +12,7 @@ class StudentsController < ApplicationController
   end
 
   def show
-    begin
-      @students = Student.find(params[:id])
-    rescue ActiveRecord::RecordNotFound => e
-      print e
-    end
+    @students = Student.find(params[:id])
   end
 
   def new
@@ -28,6 +21,7 @@ class StudentsController < ApplicationController
   end
 
   def edit
+    @student = Student.find(params[:id])
   end
 
   def create
@@ -61,7 +55,7 @@ class StudentsController < ApplicationController
     params["student"]["active"]=false
     @student.update(student_params)
     respond_to do |format|
-      format.html { redirect_to students_url, notice: 'Student was successfully destroyed.' }
+      format.html { redirect_to students_url, notice: 'Student was successfully marked in-active.' }
       format.json { head :no_content }
     end
   end
@@ -69,12 +63,7 @@ class StudentsController < ApplicationController
   private
 
     def set_student
-      begin
-        @student = Student.find(params[:id])
-      rescue ActiveRecord::RecordNotFound => e
-        print e
-        render :json => {:status => 400, :error => "RECORD NOT FOUND"}
-      end
+      @student = Student.find(params[:id])
     end
 
     def student_params
@@ -111,10 +100,6 @@ class StudentsController < ApplicationController
 
     def classroom_ids
       @class_ids = Classroom.where("name in (#{params[:classes]})").ids.join(",")
-    end
-
-    def record_not_found
-      render :json => {:status => 400, :error => "RECORD NOT FOUND"}
     end
 
 end

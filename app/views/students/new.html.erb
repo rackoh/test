@@ -3,13 +3,11 @@
 <div class="row">
   <div class="col-md-6">
     <%= form_for(@student) do |f| %>
-    <% @student.errors.full_messages.each do |msg| %>
-	    <li><%= msg %></li>
-	  <% end %>
+        <%= render 'students/form' %>
       <%= f.label "Student Name" %>
       <%= f.text_field :name %><br>
 
-      <%= f.label "Admission Year Test" %>
+      <%= f.label "Admission Year" %>
       <%= f.text_field :admission_year %><br>
 
       <%= f.label "Active" %>
@@ -17,8 +15,10 @@
 
       <%= f.hidden_field :classroom_id, :value => @classroom.id %>
 
-      <%= f.submit "Create Student", class: "btn btn-primary" %><br>
+      <%= f.submit "Create Student", class: "btn btn-primary" %>
     <% end %>
+    <%= form_for :classroom, :url => classrooms_path, method: :get do |f| %>
+      <%= submit_tag "Back", name: nil, :class => "btn btn-small btn-primary"%>
+    <%end%>
   </div>
 </div>
-<%= link_to 'Back', students_path %>

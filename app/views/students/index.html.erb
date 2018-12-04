@@ -25,17 +25,13 @@
         <td><%= student.classroom.name %></td>
         <td><%= student.classroom.code %></td>
         <td><%= form_for student, :url => edit_student_path(student), method: :get do |f| %>
-          <%= f.hidden_field :id, :value => student.id %>
-          <%= submit_tag "Edit Class", :class => "btn btn-small btn-danger"%>
+          <%= submit_tag "Edit", name: nil, :class => "btn btn-small btn-danger"%>
         <%end%>
         <td><%= form_for student, :url => { :id => student.id, :action => "destroy" }, method: :delete do |f| %>
           <%= f.hidden_field :id, :value => student.id %>
-          <%= submit_tag "Delete", :class => "btn btn-small btn-danger",
+          <%= submit_tag "Delete", name: nil, :class => "btn btn-small btn-danger",
           :confirm => "Do you want to remove this student permanently?"%>
         <%end%>
-        <!-- <td><%= link_to 'Show', student %></td>
-        <td><%= link_to 'Edit', edit_student_path(student) %></td>
-        <td><%= link_to 'Destroy', student, method: :delete, data: { confirm: 'Are you sure?' } %></td> -->
       </tr>
     <% end %>
   </tbody>

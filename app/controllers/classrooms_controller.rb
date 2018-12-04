@@ -2,13 +2,12 @@ class ClassroomsController < ApplicationController
   
   before_action :set_classroom, only: [:show, :edit, :update, :destroy]
 
-  rescue_from ActiveRecord::RecordNotFound, :with => :record_not_found
-
   def index
-    @classrooms = Classroom.where(params[:id])
+    @classrooms = Classroom.all
   end
 
   def show
+    @classroom = Classroom.find(params[:id])
   end
 
   def new
@@ -16,6 +15,7 @@ class ClassroomsController < ApplicationController
   end
 
   def edit
+    @classroom = Classroom.find(params[:id])
   end
 
   def create
@@ -63,9 +63,5 @@ class ClassroomsController < ApplicationController
 
     def classroom_params
       params.require(:classroom).permit(:name, :code, :active, :students_attriutes)
-    end
-
-    def record_not_found
-      render :json => {:status => 400, :error => "RECORD NOT FOUND"}
     end
 end
