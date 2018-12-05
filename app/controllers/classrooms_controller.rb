@@ -2,12 +2,18 @@ class ClassroomsController < ApplicationController
   
   before_action :set_classroom, only: [:show, :edit, :update, :destroy]
 
+  PAGE = 1
+  PAGE_SIZE = 20
+
   def index
-    @classrooms = Classroom.all
+    @classrooms = Classroom.all.paginate( :page => (params[:page]|| PAGE), 
+                                      :per_page => (params[:pageSize]|| PAGE_SIZE) )
   end
 
   def show
     @classroom = Classroom.find(params[:id])
+    @students = @classroom.students.paginate( :page => (params[:page]|| PAGE), 
+                                      :per_page => (params[:pageSize]|| PAGE_SIZE) )
   end
 
   def new

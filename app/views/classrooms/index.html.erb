@@ -39,6 +39,8 @@
   </tbody>
 </table>
 <br>
-<%= form_for :classroom, :url => new_classroom_path, method: :get do |f| %>
-  <%= submit_tag "Create New Class", name: nil, :class => "btn btn-large btn-primary"%>
-<%end%>
+<% unless @classrooms.blank?%>
+  <div class="list-noinfo" ><%= page_entries_info @classrooms, :entry_name => 'classrooms'%></div>
+  <div class="toolbar"><%= will_paginate @classrooms , :class => "toolbar_pagination_full",
+    :previous_label => "« Previous", :next_label => "Next »"%></div>
+<%end%> 

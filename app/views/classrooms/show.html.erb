@@ -30,7 +30,7 @@
         </thead>
 
         <tbody>
-          <% @classroom.students.each do |student| %>
+          <% @students.each do |student| %>
             <tr>
               <td><%= student.name %></td>
               <td><%= student.admission_year %></td>
@@ -66,3 +66,8 @@
     </div>
   </div>
 <%end%>
+<% unless @students.blank?%>
+  <div class="list-noinfo" ><%= page_entries_info @students, :entry_name => 'v'%></div>
+  <div class="toolbar"><%= will_paginate @students , :class => "toolbar_pagination_full",
+    :previous_label => "« Previous", :next_label => "Next »"%></div>
+<%end%> 

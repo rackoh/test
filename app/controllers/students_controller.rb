@@ -1,13 +1,18 @@
 class StudentsController < ApplicationController
   before_action :set_student, only: [:show, :edit, :update, :destroy]
-  
+    
+  PAGE = 1
+  PAGE_SIZE = 20
+
   def index
     if invalid_active_state || invalid_classroom_ids
       @students = []
     elsif (!params[:active].nil? || params[:admissionYearAfter].present? || params[:admissionYearBefore].present? || params[:classes].present?)
-      @students = Student.where(search_query)
+      @students = Student.where(search_query).paginate( :page => (params[:page]|| PAGE), 
+                                      :per_page => (params[:pageSize]|| PAGE_SIZE) )
     else
-      @students = Student.all
+      @students = Student.all.paginate( :page => (params[:page]|| PAGE), 
+                                      :per_page => (params[:pageSize]|| PAGE_SIZE) )
     end
   end
 

@@ -37,4 +37,9 @@
   </tbody>
 </table>
 <br>
+<% unless @students.blank?%>
+  <div class="list-noinfo" ><%= page_entries_info @students, :entry_name => 'students'%></div>
+  <div class="toolbar"><%= will_paginate @students , :class => "toolbar_pagination_full",
+    :previous_label => "« Previous", :next_label => "Next »"%></div>
+<%end%> 
 
