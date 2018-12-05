@@ -12,6 +12,7 @@ default: &default
   username: sertest
   password: pAs$^451
   socket: /tmp/mysql.sock
+  database: mytest
 
 development:
   <<: *default
@@ -22,8 +23,8 @@ development:
 # Do not set this db to the same as development or production.
 test:
   <<: *default
-  database: test_app
+  database: mytest
 
 production:
   <<: *default
-  database: test_app
+  database: mytest
